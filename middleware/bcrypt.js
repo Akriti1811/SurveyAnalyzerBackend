@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-const { logger } = require('./logger');
 
 const saltRounds = 10;
 
@@ -9,7 +8,6 @@ exports.encrypt = async (data) => {
 		const hash = await bcrypt.hash(data, salt);
 		return hash;
 	} catch (error) {
-		logger.error(error);
 		return false;
 	}
 };
@@ -20,7 +18,6 @@ exports.compare = async (data, hash, callback) => {
 			callback(bcryptError, bcryptResult)
 		);
 	} catch (error) {
-		logger.error(error);
 		return false;
 	}
 };
