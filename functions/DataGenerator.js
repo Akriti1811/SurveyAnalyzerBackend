@@ -1,5 +1,42 @@
 const { faker } = require('@faker-js/faker');
 const CompanyData = require('../models/CompanyData');
+// const csvDownload = require('json-to-csv-export');
+
+let users = [];
+
+// const dataToConvert = {
+//     data: users.map((user) => {
+//         return {
+//             name: user.name,
+//             email: user.email,
+//             region: user.region,
+//             role: user.role,
+//             department: user.department,
+//             gender: user.gender,
+//             tenure: user.tenure,
+//             overallSatisfaction: user.overallSatisfaction,
+//             jobSatisfaction: user.jobSatisfaction,
+//             organizationalCulture: user.organizationalCulture,
+//             workLifeBalance: user.workLifeBalance,
+//         };
+//     }),
+//     filename: 'Users_data1',
+//     delimiter: ',',
+//     headers: [
+//         'Name',
+//         'Email',
+//         'Region',
+//         'Role',
+//         'Department',
+//         'Gender',
+//         'Tenure',
+//         'OverallSatisfaction',
+//         'JobSatisfaction',
+//         'OrganizationalCulture',
+//         'WorkLifeBalance',
+//     ],
+// };
+
 // Generate dummy data for 100 people
 
 const genders = ['male', 'female'];
@@ -24,7 +61,7 @@ function createRandomUser() {
 }
 
 exports.generateData = async() => {
-    const users = Array.from({ length: 500 }, createRandomUser);
+    users = Array.from({ length: 500 }, createRandomUser);
     let averageOverallSatisfaction = 0;
     let averageJobSatisfaction = 0;
     let averageOrganizationalCulture = 0;
@@ -48,7 +85,7 @@ exports.generateData = async() => {
     //save it to mongodb    
 
     await CompanyData.create({
-        companyName: 'Google',
+        companyName: 'Deloitte',
         averageOverallSatisfaction,
         averageJobSatisfaction,
         averageOrganizationalCulture,
@@ -56,6 +93,6 @@ exports.generateData = async() => {
         data: users
     });
 
-    console.log('Company Data Saved successfully');
+    console.log('Company Data Downloaded successfully');
 
 }
