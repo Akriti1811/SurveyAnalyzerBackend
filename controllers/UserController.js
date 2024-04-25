@@ -49,10 +49,10 @@ exports.upload = async (req, res) => {
                     await userData.save();
                 }
 
-                res.status(200).json({message: 'File uploaded and converted to JSON'});
+                res.status(200).json({message: 'File uploaded Successfully!'});
             } catch (csvError) {
-                console.error('Error converting file to JSON:', csvError);
-                res.status(500).json({message: 'Error converting file to JSON'});
+                console.error('Error uploading', csvError);
+                res.status(500).json({message: 'Error uploading'});
             }
         }
     }catch(error){
