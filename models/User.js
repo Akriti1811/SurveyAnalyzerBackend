@@ -27,6 +27,11 @@ const userSchema = new Schema(
 			type: String,
 			required: true,
 			trim: true,
+		},
+		subscription: {
+			type: String,
+			enum: ['free', 'paid'],
+			default: 'free',
 		}
 	},
 	{ timestamps: true }
