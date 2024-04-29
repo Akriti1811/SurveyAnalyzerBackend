@@ -56,7 +56,7 @@ function createRandomUser() {
         overallSatisfaction: faker.number.int({ min: 1, max: 5 }),
         jobSatisfaction: faker.number.int({ min: 1, max: 5 }),
         organizationalCulture: faker.number.int({ min: 1, max: 5 }),
-        workLifeBalance: faker.number.int({ min: 2, max: 5 }),
+        workLifeBalance: faker.number.int({ min: 1, max: 5 }),
     };
 }
 
