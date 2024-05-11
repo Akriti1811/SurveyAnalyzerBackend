@@ -44,7 +44,7 @@ exports.upload = async (req, res) => {
               fileContent: JSON.stringify(jsonArrayObj),
             },
           });
-          fileId = newUserData._id;
+          fileId = newUserData.data[0]._id;
         } else {
           const { data } = userData;
 
@@ -228,7 +228,6 @@ exports.getCompanyData = async (req, res) => {
     const fileData = userData.data.find((file) => file._id.equals(fileId));
 
     const companyData = await CompanyData.findOne({ companyName: companyName });
-    console.log("COMPANYYYYYY", fileId);
 
     const data1 = analyzeData(JSON.parse(fileData.fileContent));
 
