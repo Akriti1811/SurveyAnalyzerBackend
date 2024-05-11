@@ -35,4 +35,28 @@ router.post(
 	UserController.upload
 );
 
+router.get(
+    '/getUploads',
+    authMiddleware,
+    UserController.getUploads
+)
+
+router.get(
+    '/getTenureData',
+    authMiddleware,
+    UserController.getTenureData
+)
+
+router.get(
+    '/getComparisonData',
+    authMiddleware,
+    UserController.getComparisonData
+)
+
+router.get(
+    '/getCompanyData',
+    authMiddleware,
+    UserController.getCompanyData
+)
+
 module.exports = router;

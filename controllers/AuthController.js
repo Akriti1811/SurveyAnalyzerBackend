@@ -26,9 +26,11 @@ exports.register = async (req, res) => {
 		if (!newUser) {
 			return res.status(401).json({ message: 'Unable to sign you up' });
 		}
+		const token = signToken(req.body.email);
         return res.status(200).json({
             message: 'Succesfully Registered',
             email: newUser.email,
+			token,
         });
 	} catch (error) {
 		return res.status(401).json({
