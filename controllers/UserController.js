@@ -1,6 +1,4 @@
-const User = require("../models/User");
 const csvtojson = require("csvtojson");
-const fs = require("fs");
 const path = require("path");
 const xlsx = require("xlsx");
 const UserData = require("../models/UserData");
@@ -74,22 +72,42 @@ exports.upload = async (req, res) => {
   }
 };
 
+exports.analyzePastContent = async (req, res) => {
+  try {
+    const fileId = req.body.fileId;
+    const email = req.email;
+    const userData = await UserData.findOne({ email });
+    const fileData = userData.data.find((file) => file._id.equals(fileId));
+
+    const data = analyzeData(JSON.parse(fileData.fileContent));
+    return res
+      .status(200)
+      .json({ ...data, message: "Data Analyzed successfully" });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json({ message: "Failed to analyze data" });
+  }
+};
+
 exports.getUploads = async (req, res) => {
   try {
     const email = req.email;
-    const userData = await UserData.find({ email });
-
-    console.log(userData);
-
-    if (!userData) {
-      res.status(404).json({ message: "No data found" });
-    } else {
-      res
-        .status(200)
-        .json({ userData, message: "Uploads Fetched successfully" });
+    const data = await UserData.findOne({ email });
+    if (!data) {
+      return res.status(200).json({ userData: [], message: "No data found" });
     }
+    const userData = data.data.map((item) => ({
+      fileName: item.fileName,
+      fileId: item._id,
+    }));
+    userData.reverse();
+
+    return res
+      .status(200)
+      .json({ userData, message: "Uploads Fetched successfully" });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ message: "Failed to fetch data" });
   }
 };
 

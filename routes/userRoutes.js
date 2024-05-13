@@ -35,6 +35,12 @@ router.post(
 	UserController.upload
 );
 
+router.post(
+	'/analyzePastContent',
+    authMiddleware,
+	UserController.analyzePastContent
+);
+
 router.get(
     '/getUploads',
     authMiddleware,
